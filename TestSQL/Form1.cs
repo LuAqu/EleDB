@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TestSQL
+namespace EleDB
 {
     public partial class Form1 : Form
     {
@@ -39,11 +39,19 @@ namespace TestSQL
 
         private void Submit_Click(object sender, EventArgs e)
         {
-            dbToolbox.insertRecord("Elephants", this.nameField.Text, this.descField.Text, ImageToBase64(this.PhotoBox.Image, System.Drawing.Imaging.ImageFormat.Jpeg));
-            //dbToolbox.insertRecord("Elephants", "description", this.DescField.Text);
-            //dbToolbox.insertImageRecord("Elephants", "Photo", ImageToBase64(this.PhotoBox.Image, System.Drawing.Imaging.ImageFormat.Jpeg));
+            String name = this.nameField.Text;
+            String desc = this.descField.Text;
+            String photo = ImageToBase64(this.PhotoBox.Image, System.Drawing.Imaging.ImageFormat.Jpeg);
+            String gender = this.genderBox.Text;
+            String location = this.locBox.Text;
 
-            //this.PhotoBox.Image = Base64ToImage(dbToolbox.getImage());
+            if(String.Equals(name, ""))
+            {
+                MessageBox.Show("ERROR", "Name cannot be empty", MessageBoxButtons.OK);
+            } else
+            {
+                dbToolbox.insertRecord("Elephants", name, desc, photo, gender, location);
+            }
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
@@ -103,6 +111,38 @@ namespace TestSQL
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            Elephant elephant = dbToolbox.retrieveRecords(this.searchText.Text);
+
+            this.nameInfo.Text = elephant.getName();
+            this.genderInfo.Text = elephant.getGender();
+            this.dateInfo.Text = elephant.getDateAdded().ToString();
+            this.locInfo.Text = elephant.getLocation();
+            this.descInfo.Text = elephant.getDescription();
+            this.photoInfoBox.Image = Base64ToImage(elephant.getPhoto());
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Title_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
         {
 
         }

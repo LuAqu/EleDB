@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestSQL
+namespace EleDB
 {
     class DatabaseToolbox
     {
@@ -29,7 +29,7 @@ namespace TestSQL
         // Creates a connection with our database file.
         void connectToDatabase()
         {
-            m_dbConnection = new SQLiteConnection("Data Source=MyDatabase.sqlite;Version=3;");
+            m_dbConnection = new SQLiteConnection("Data Source=Elephant.sqlite;Version=3;");
             m_dbConnection.Open();
         }
 
@@ -43,17 +43,25 @@ namespace TestSQL
 
         // Inserts some values in the highscores table.
         // As you can see, there is quite some duplicate code here, we'll solve this in part two.
-        public void insertRecord(String tableName, String name, String description, String photo)
+        public void insertRecord(String tableName, String name, String description, String photo, String gender, String location)
         {
-            string sql = "insert into " + tableName + "(name, description, photo) values (@name, @description, @photo)";
+            string sql = "insert into " + tableName + "(name, description, photo, gender, date_added, location) values (@name, @description, @photo, @gender, @date_added, @location)";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             SQLiteParameter nameParam = new SQLiteParameter("@name", DbType.String);
             SQLiteParameter descParam = new SQLiteParameter("@description", DbType.String);
             SQLiteParameter photoParam = new SQLiteParameter("@photo", DbType.String);
+            SQLiteParameter genderParam = new SQLiteParameter("@gender", DbType.String);
+            SQLiteParameter dateParam = new SQLiteParameter("@date_added", DbType.Date);
+            SQLiteParameter locParam = new SQLiteParameter("@location", DbType.String);
+
+            DateTime currDate = new DateTime();
 
             command.Parameters.AddWithValue("@name", name);
             command.Parameters.AddWithValue("@description", description);
             command.Parameters.AddWithValue("@photo", photo);
+            command.Parameters.AddWithValue("@gender", gender);
+            command.Parameters.AddWithValue("@date_added", currDate);
+            command.Parameters.AddWithValue("@location", location);
 
             command.ExecuteNonQuery();
         }
@@ -69,7 +77,30 @@ namespace TestSQL
             command.ExecuteNonQuery();
         }
 
-        // Writes the highscores to the console sorted on score in descending order.
+        public Elephant retrieveRecords(String name)
+        {
+            Elephant elephant = new Elephant();
+            string retrievalSQL = "select * from elephants where name='" + name + "'";
+            SQLiteCommand command = new SQLiteCommand(retrievalSQL, m_dbConnection);
+
+            SQLiteDataReader reader;
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                elephant.setName(reader["name"].ToString());
+                elephant.setDescription(reader["description"].ToString());
+
+                byte[] photoImage = (byte[])reader["Photo"];
+
+                elephant.setPhoto(System.Text.Encoding.UTF8.GetString(photoImage));
+                elephant.setGender(reader["gender"].ToString());
+                elephant.setDateAdded(Convert.ToDateTime(reader["date_added"].ToString()));
+                elephant.setLocation(reader["location"].ToString());
+            }
+
+            return elephant;
+        }
+
         public string getImage()
         {
             string sql = "select Photo from Elephants where name is null";
@@ -78,7 +109,6 @@ namespace TestSQL
             string base64EncodedImage = null;
             IDataReader reader = command.ExecuteReader();
             var ordinal = reader.GetOrdinal("Photo");
-            //reader.Read(); // advance the data reader to the first row
 
             while (reader.Read())
             {

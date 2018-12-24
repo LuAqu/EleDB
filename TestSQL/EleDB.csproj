@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elephant.cs" />
     <Compile Include="DatabaseToolbox.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
