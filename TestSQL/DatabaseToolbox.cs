@@ -23,7 +23,7 @@ namespace EleDB
         // Creates an empty database file
         void createNewDatabase()
         {
-            SQLiteConnection.CreateFile("MyDatabase.sqlite");
+            SQLiteConnection.CreateFile("Elephant.sqlite");
         }
 
         // Creates a connection with our database file.
@@ -34,34 +34,45 @@ namespace EleDB
         }
 
         // Creates a table named 'highscores' with two columns: name (a string of max 20 characters) and score (an int)
-        /*void createTable()
+        void createTable()
         {
-            string sql = "create table highscores (name varchar(20), score int)";
+            string sql = "create table elephant (name varchar(20), description varchar(255), photo blob, gender varchar(1), date_added date, location varchar(255)";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
-        }*/
+        }
 
         // Inserts some values in the highscores table.
         // As you can see, there is quite some duplicate code here, we'll solve this in part two.
-        public void insertRecord(String tableName, String name, String description, String photo, String gender, String location)
+        public void insertRecord(String tableName, String name, String description, String photo, String alternate_photo, String price, String source, String type, String origin, String acquisition, String dimensions, String location)
         {
-            string sql = "insert into " + tableName + "(name, description, photo, gender, date_added, location) values (@name, @description, @photo, @gender, @date_added, @location)";
+            string sql = "insert into " + tableName + "(name, anecdote, photo, alternate_photo, price, type, source, origin, acquisition_method, dimensions, date_added, location) values (@name, @description, @photo, @alternate_photo, @price, @type, @source, @origin, @acquisition, @dimensions, @date_added, @location)";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             SQLiteParameter nameParam = new SQLiteParameter("@name", DbType.String);
             SQLiteParameter descParam = new SQLiteParameter("@description", DbType.String);
             SQLiteParameter photoParam = new SQLiteParameter("@photo", DbType.String);
-            SQLiteParameter genderParam = new SQLiteParameter("@gender", DbType.String);
+            SQLiteParameter alternatePhotoParam = new SQLiteParameter("@alternate_photo", DbType.String);
+            SQLiteParameter priceParam = new SQLiteParameter("@price", DbType.Double);
+            SQLiteParameter typeParam = new SQLiteParameter("@type", DbType.String);
+            SQLiteParameter originParam = new SQLiteParameter("@origin", DbType.String);
+            SQLiteParameter acquisitionParam = new SQLiteParameter("@acquisition", DbType.String);
+            SQLiteParameter dimensionParam = new SQLiteParameter("@dimensions", DbType.String);
             SQLiteParameter dateParam = new SQLiteParameter("@date_added", DbType.Date);
             SQLiteParameter locParam = new SQLiteParameter("@location", DbType.String);
 
-            DateTime currDate = new DateTime();
+            DateTime currDate = DateTime.Now;
 
             command.Parameters.AddWithValue("@name", name);
             command.Parameters.AddWithValue("@description", description);
             command.Parameters.AddWithValue("@photo", photo);
-            command.Parameters.AddWithValue("@gender", gender);
             command.Parameters.AddWithValue("@date_added", currDate);
             command.Parameters.AddWithValue("@location", location);
+            command.Parameters.AddWithValue("@alternate_photo", alternate_photo);
+            command.Parameters.AddWithValue("@price", price);
+            command.Parameters.AddWithValue("@source", source);
+            command.Parameters.AddWithValue("@type", type);
+            command.Parameters.AddWithValue("@origin", origin);
+            command.Parameters.AddWithValue("@acquisition", acquisition);
+            command.Parameters.AddWithValue("@dimensions", dimensions);
 
             command.ExecuteNonQuery();
         }
@@ -77,6 +88,53 @@ namespace EleDB
             command.ExecuteNonQuery();
         }
 
+        public void updateRecord(String tableName, String id, String name, String description, String photo, String alternate_photo, String price, String source, String type, String origin, String acquisition, String dimensions, String location)
+        {
+            string sql = "UPDATE " + tableName + " SET name = @name, anecdote = @anecdote, photo = @photo, alternate_photo = @alternate_photo, price = @price, type = @type, source = @source, origin = @origin, acquisition_method = @acquisition, dimensions = @dimensions, location = @location WHERE id = @id";
+            
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteParameter idParam = new SQLiteParameter("@id", DbType.String);
+            SQLiteParameter nameParam = new SQLiteParameter("@name", DbType.String);
+            SQLiteParameter descParam = new SQLiteParameter("@description", DbType.String);
+            SQLiteParameter photoParam = new SQLiteParameter("@photo", DbType.String);
+            SQLiteParameter alternatePhotoParam = new SQLiteParameter("@alternate_photo", DbType.String);
+            SQLiteParameter priceParam = new SQLiteParameter("@price", DbType.Double);
+            SQLiteParameter typeParam = new SQLiteParameter("@type", DbType.String);
+            SQLiteParameter originParam = new SQLiteParameter("@origin", DbType.String);
+            SQLiteParameter acquisitionParam = new SQLiteParameter("@acquisition", DbType.String);
+            SQLiteParameter dimensionParam = new SQLiteParameter("@dimensions", DbType.String);
+            SQLiteParameter dateParam = new SQLiteParameter("@date_added", DbType.Date);
+            SQLiteParameter locParam = new SQLiteParameter("@location", DbType.String);
+
+            DateTime currDate = DateTime.Now;
+
+            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@anecdote", description);
+            command.Parameters.AddWithValue("@photo", photo);
+            command.Parameters.AddWithValue("@date_added", currDate);
+            command.Parameters.AddWithValue("@location", location);
+            command.Parameters.AddWithValue("@alternate_photo", alternate_photo);
+            command.Parameters.AddWithValue("@price", price);
+            command.Parameters.AddWithValue("@source", source);
+            command.Parameters.AddWithValue("@type", type);
+            command.Parameters.AddWithValue("@origin", origin);
+            command.Parameters.AddWithValue("@acquisition", acquisition);
+            command.Parameters.AddWithValue("@dimensions", dimensions);
+
+            command.ExecuteNonQuery();
+        }
+
+        public void insertTypeRecord(String type)
+        {
+            string sql = "insert into types (name) values (@name)";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteParameter nameParam = new SQLiteParameter("@name", DbType.String);
+
+            command.Parameters.AddWithValue("@name", type);
+            command.ExecuteNonQuery();
+        }
+
         public Elephant retrieveRecords(String name)
         {
             Elephant elephant = new Elephant();
@@ -87,15 +145,22 @@ namespace EleDB
             reader = command.ExecuteReader();
             if (reader.Read())
             {
-                elephant.setName(reader["name"].ToString());
-                elephant.setDescription(reader["description"].ToString());
+                elephant.Id = reader["id"].ToString();
+                elephant.Name = (reader["name"].ToString());
+                elephant.Description = (reader["anecdote"].ToString());
 
-                byte[] photoImage = (byte[])reader["Photo"];
+                byte[] photoImage = Encoding.UTF8.GetBytes(reader["photo"].ToString());  
+                byte[] photoImage2 = Encoding.UTF8.GetBytes(reader["alternate_photo"].ToString());
 
-                elephant.setPhoto(System.Text.Encoding.UTF8.GetString(photoImage));
-                elephant.setGender(reader["gender"].ToString());
-                elephant.setDateAdded(Convert.ToDateTime(reader["date_added"].ToString()));
-                elephant.setLocation(reader["location"].ToString());
+                elephant.Photo = (System.Text.Encoding.UTF8.GetString(photoImage));
+                elephant.AlternatePhoto = (System.Text.Encoding.UTF8.GetString(photoImage2));
+
+                elephant.DateAdded = Convert.ToDateTime(reader["date_added"].ToString());
+                elephant.Location = reader["location"].ToString();
+                elephant.Origin = reader["origin"].ToString();
+                elephant.Price = reader["price"].ToString();
+                elephant.Source = reader["source"].ToString();
+                elephant.Dimensions = reader["dimensions"].ToString();
             }
 
             return elephant;

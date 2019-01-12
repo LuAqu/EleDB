@@ -8,49 +8,177 @@ namespace EleDB
 {
     class Elephant
     {
-        String name;
-        String description;
-        String photo;
-        String gender;
-        DateTime dateAdded;
-        String location;
+        private string id;
+        private string name;
+        private string description;
+        private string photo;
+        private string alternatePhoto;
+        private DateTime dateAdded;
+        private string location;
+        private string price;
+        private string source;
+        private string type;
+        private string origin;
+        private string acquisition;
+        private string dimensions;
 
         public Elephant() { }
 
-        public String getName() { return name; }
-        public void setName(String name)
+        public string Id
         {
-            this.name = name;
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
         }
 
-        public String getDescription() { return description; }
-        public void setDescription(String description)
+        public string Name
         {
-            this.description = description;
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
         }
 
-        public String getPhoto() { return photo; }
-        public void setPhoto(String photo)
+        public string Description
         {
-            this.photo = photo;
+            get
+            {
+                return description;
+            }
+            set
+            {
+                description = value;
+            }
         }
 
-        public String getGender() { return gender; }
-        public void setGender(String gender)
+        public string Photo
         {
-            this.gender = gender;
+            get
+            {
+                return photo;
+            }
+            set
+            {
+                photo = value;
+            }
         }
 
-        public DateTime getDateAdded() { return dateAdded; }
-        public void setDateAdded(DateTime dateAdded)
+        public string AlternatePhoto
         {
-            this.dateAdded = dateAdded;
+            get
+            {
+                return alternatePhoto;
+            }
+            set
+            {
+                alternatePhoto = value;
+            }
         }
 
-        public String getLocation() { return location; }
-        public void setLocation(String location)
+        public DateTime DateAdded
         {
-            this.location = location;
+            get
+            {
+                return dateAdded;
+            }
+            set
+            {
+                dateAdded = value;
+            }
         }
+
+        public string Location
+        {
+            get
+            {
+                return location;
+            }
+            set
+            {
+                location = value;
+            }
+        }
+
+        public string Price
+        {
+            get
+            {
+                return price;
+            }
+            set
+            {
+                price = value;
+            }
+        }
+
+        public string Source
+        {
+            get
+            {
+                return source;
+            }
+            set
+            {
+                source = value;
+            }
+        }
+
+        public string Type
+        {
+            get
+            {
+                return type;
+            }
+            set
+            {
+                type = value;
+            }
+        }
+
+        public string Origin
+        {
+            get
+            {
+                return origin;
+            }
+            set
+            {
+                origin = value;
+            }
+        }
+
+        public string Acquisition
+        {
+            get
+            {
+                return acquisition;
+            }
+            set
+            {
+                acquisition = value;
+            }
+        }
+
+        public string Dimensions
+        {
+            get
+            {
+                return dimensions;
+            }
+            set
+            {
+                dimensions = value;
+            }
+        }
+    
     }
 }
