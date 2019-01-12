@@ -35,7 +35,7 @@
             this.newTypeField = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.dimensionEditField1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.editButton = new System.Windows.Forms.Button();
             this.editPhotoButton2 = new System.Windows.Forms.Button();
             this.editPhotoButton1 = new System.Windows.Forms.Button();
@@ -101,7 +101,7 @@
             this.Title = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage3.SuspendLayout();
-            this.dimensionEditField1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.photoEditBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoEditBox1)).BeginInit();
             this.tabPage1.SuspendLayout();
@@ -174,48 +174,48 @@
             this.label2.TabIndex = 19;
             this.label2.Text = "EleDB: Add a new type";
             // 
-            // dimensionEditField1
+            // tabPage2
             // 
-            this.dimensionEditField1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.dimensionEditField1.Controls.Add(this.editButton);
-            this.dimensionEditField1.Controls.Add(this.editPhotoButton2);
-            this.dimensionEditField1.Controls.Add(this.editPhotoButton1);
-            this.dimensionEditField1.Controls.Add(this.photoEditBox2);
-            this.dimensionEditField1.Controls.Add(this.photoEditBox1);
-            this.dimensionEditField1.Controls.Add(this.sourceEditField);
-            this.dimensionEditField1.Controls.Add(this.dimensionEditField3);
-            this.dimensionEditField1.Controls.Add(this.dimensionEditField2);
-            this.dimensionEditField1.Controls.Add(this.textBox4);
-            this.dimensionEditField1.Controls.Add(this.originEditField);
-            this.dimensionEditField1.Controls.Add(this.locationEditField);
-            this.dimensionEditField1.Controls.Add(this.idEditField);
-            this.dimensionEditField1.Controls.Add(this.priceEditField);
-            this.dimensionEditField1.Controls.Add(this.nameEditField);
-            this.dimensionEditField1.Controls.Add(this.descEditField);
-            this.dimensionEditField1.Controls.Add(this.label3);
-            this.dimensionEditField1.Controls.Add(this.label4);
-            this.dimensionEditField1.Controls.Add(this.label8);
-            this.dimensionEditField1.Controls.Add(this.label9);
-            this.dimensionEditField1.Controls.Add(this.methodEditField);
-            this.dimensionEditField1.Controls.Add(this.label10);
-            this.dimensionEditField1.Controls.Add(this.label11);
-            this.dimensionEditField1.Controls.Add(this.label12);
-            this.dimensionEditField1.Controls.Add(this.label13);
-            this.dimensionEditField1.Controls.Add(this.typeEditField);
-            this.dimensionEditField1.Controls.Add(this.label14);
-            this.dimensionEditField1.Controls.Add(this.label15);
-            this.dimensionEditField1.Controls.Add(this.label16);
-            this.dimensionEditField1.Controls.Add(this.label17);
-            this.dimensionEditField1.Controls.Add(this.label5);
-            this.dimensionEditField1.Controls.Add(this.searchButton);
-            this.dimensionEditField1.Controls.Add(this.searchText);
-            this.dimensionEditField1.Location = new System.Drawing.Point(4, 22);
-            this.dimensionEditField1.Name = "dimensionEditField1";
-            this.dimensionEditField1.Padding = new System.Windows.Forms.Padding(3);
-            this.dimensionEditField1.Size = new System.Drawing.Size(960, 553);
-            this.dimensionEditField1.TabIndex = 1;
-            this.dimensionEditField1.Text = "Search";
-            this.dimensionEditField1.Click += new System.EventHandler(this.tabPage2_Click);
+            this.tabPage2.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.tabPage2.Controls.Add(this.editButton);
+            this.tabPage2.Controls.Add(this.editPhotoButton2);
+            this.tabPage2.Controls.Add(this.editPhotoButton1);
+            this.tabPage2.Controls.Add(this.photoEditBox2);
+            this.tabPage2.Controls.Add(this.photoEditBox1);
+            this.tabPage2.Controls.Add(this.sourceEditField);
+            this.tabPage2.Controls.Add(this.dimensionEditField3);
+            this.tabPage2.Controls.Add(this.dimensionEditField2);
+            this.tabPage2.Controls.Add(this.textBox4);
+            this.tabPage2.Controls.Add(this.originEditField);
+            this.tabPage2.Controls.Add(this.locationEditField);
+            this.tabPage2.Controls.Add(this.idEditField);
+            this.tabPage2.Controls.Add(this.priceEditField);
+            this.tabPage2.Controls.Add(this.nameEditField);
+            this.tabPage2.Controls.Add(this.descEditField);
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.label8);
+            this.tabPage2.Controls.Add(this.label9);
+            this.tabPage2.Controls.Add(this.methodEditField);
+            this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Controls.Add(this.label11);
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.label13);
+            this.tabPage2.Controls.Add(this.typeEditField);
+            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.label17);
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.searchButton);
+            this.tabPage2.Controls.Add(this.searchText);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(960, 553);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Search";
+            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // editButton
             // 
@@ -426,15 +426,6 @@
             // typeEditField
             // 
             this.typeEditField.FormattingEnabled = true;
-            this.typeEditField.Items.AddRange(new object[] {
-            "Soft Toy",
-            "Wood",
-            "Glass",
-            "Porcelain",
-            "Stone",
-            "Ivory",
-            "Plastic",
-            "Other"});
             this.typeEditField.Location = new System.Drawing.Point(159, 143);
             this.typeEditField.Name = "typeEditField";
             this.typeEditField.Size = new System.Drawing.Size(100, 21);
@@ -731,15 +722,6 @@
             // typeField
             // 
             this.typeField.FormattingEnabled = true;
-            this.typeField.Items.AddRange(new object[] {
-            "Soft Toy",
-            "Wood",
-            "Glass",
-            "Porcelain",
-            "Stone",
-            "Ivory",
-            "Plastic",
-            "Other"});
             this.typeField.Location = new System.Drawing.Point(162, 147);
             this.typeField.Name = "typeField";
             this.typeField.Size = new System.Drawing.Size(100, 21);
@@ -832,7 +814,7 @@
             // tabControl
             // 
             this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Controls.Add(this.dimensionEditField1);
+            this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Controls.Add(this.tabPage3);
             this.tabControl.Location = new System.Drawing.Point(-2, 12);
             this.tabControl.Name = "tabControl";
@@ -852,8 +834,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.dimensionEditField1.ResumeLayout(false);
-            this.dimensionEditField1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.photoEditBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoEditBox1)).EndInit();
             this.tabPage1.ResumeLayout(false);
@@ -874,7 +856,7 @@
         private System.Windows.Forms.TextBox newTypeField;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TabPage dimensionEditField1;
+        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.TextBox searchText;

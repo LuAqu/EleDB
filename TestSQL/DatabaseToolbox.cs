@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -164,6 +165,35 @@ namespace EleDB
             }
 
             return elephant;
+        }
+
+        public ArrayList retrieveTypes()
+        { 
+            ArrayList retTypes = new ArrayList();
+
+            string retrievalSQL = "select * from types";
+            SQLiteCommand command = new SQLiteCommand(retrievalSQL, m_dbConnection);
+
+            SQLiteDataReader reader;
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                retTypes.Add(reader["name"].ToString());
+            }
+
+            return retTypes;
+        }
+
+        public int getCount()
+        {
+            string retrievalSQL = "select count(*) from elephants";
+            SQLiteCommand command = new SQLiteCommand(retrievalSQL, m_dbConnection);
+
+            SQLiteDataReader reader;
+
+            return Convert.ToInt32(command.ExecuteScalar()) + 1;
+
         }
 
         public string getImage()

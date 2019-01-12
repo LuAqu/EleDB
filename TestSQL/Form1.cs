@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace EleDB
 {
@@ -26,6 +27,15 @@ namespace EleDB
         private void Form1_Load(object sender, EventArgs e)
         {
             dbToolbox = new DatabaseToolbox();
+
+            ArrayList types = dbToolbox.retrieveTypes();
+            foreach (var val in types)
+            {
+                this.typeField.Items.Add(val);
+                this.typeEditField.Items.Add(val);
+            }
+
+            this.numberInfo.Text = dbToolbox.getCount().ToString();
         }
             
 
@@ -51,16 +61,13 @@ namespace EleDB
             String origin = this.originField.Text;
             String acquisition = this.acquisitionField.Text;
             String dimensions = this.dimensionField1.Text + "x" + this.dimensionField2.Text + "x" + this.dimensionField3.Text;
-            String location = this.acquisitionField.Text;
+            String location = this.locField.Text;
 
-            if (String.Equals(name, ""))
-            {
-                MessageBox.Show("Name cannot be empty", "ERROR", MessageBoxButtons.OK);
-            } else
-            {
-                dbToolbox.insertRecord("Elephants", name, desc, photo, alternate_photo, price, source, type, origin, acquisition, dimensions, location);
-                MessageBox.Show(name + " has been added to the collection!", "SUCCESS", MessageBoxButtons.OK);
-            }
+            dbToolbox.insertRecord("Elephants", name, desc, photo, alternate_photo, price, source, type, origin, acquisition, dimensions, location);
+            MessageBox.Show(name + " has been added to the collection!", "SUCCESS", MessageBoxButtons.OK);
+
+            int next = Int32.Parse(this.numberInfo.Text) + 1;
+            this.numberInfo.Text = next.ToString();
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
@@ -164,7 +171,7 @@ namespace EleDB
             this.originEditField.Text = elephant.Origin;
             this.methodEditField.SelectedIndex = get_combobox_index(this.methodEditField, elephant.Acquisition);
             string[] dimensions = elephant.Dimensions.Split('x');
-            this.dimensionEditField1.Text = dimensions[0];
+            this.tabPage2.Text = dimensions[0];
             this.dimensionEditField2.Text = dimensions[1];
             this.dimensionEditField3.Text = dimensions[2];
             this.locationEditField.Text = elephant.Location;
@@ -278,18 +285,11 @@ namespace EleDB
             String type = this.typeEditField.Text;
             String origin = this.originEditField.Text;
             String acquisition = this.methodEditField.Text;
-            String dimensions = this.dimensionEditField1.Text + " x " + this.dimensionEditField2.Text + " x " + this.dimensionEditField3.Text;
+            String dimensions = this.tabPage2.Text + " x " + this.dimensionEditField2.Text + " x " + this.dimensionEditField3.Text;
             String location = this.locationEditField.Text;
 
-            if (String.Equals(name, ""))
-            {
-                MessageBox.Show("Name cannot be empty", "ERROR", MessageBoxButtons.OK);
-            }
-            else
-            {
-                dbToolbox.updateRecord("Elephants", id, name, desc, photo, alternate_photo, price, source, type, origin, acquisition, dimensions, location);
-                MessageBox.Show(name + " has been modified!", "SUCCESS", MessageBoxButtons.OK);
-            }
+            dbToolbox.updateRecord("Elephants", id, name, desc, photo, alternate_photo, price, source, type, origin, acquisition, dimensions, location);
+            MessageBox.Show(name + " has been modified!", "SUCCESS", MessageBoxButtons.OK);
         }
 
         private void editPhotoButton1_Click(object sender, EventArgs e)
